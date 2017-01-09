@@ -92,7 +92,6 @@ ENV/
 
 # Project settings
 .DS_Store
-logs/
-images/*.jpg
+*.jpg
 setenv.sh
 _detect.py

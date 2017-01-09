@@ -24,6 +24,7 @@ class WebcamClient():
         self.emotion_client = EmotionHttpService(emotion_api)
         self.face_client = FaceHttpService(face_api)
         self.handlers = handlers
+        self.face_cascade = cv2.CascadeClassifier(self._CASCADE_CLASSIFIER)
         self._set_logger()
 
     def _detect_local_faces(self):
@@ -31,12 +32,11 @@ class WebcamClient():
         Run detection of faces by using opencv detection
         algorithm
         """
-        face_cascade = cv2.CascadeClassifier(self._CASCADE_CLASSIFIER)
         rects = []
         image_temp = cv2.imread(self.IMAGE_PATH)
         gray = cv2.cvtColor(image_temp, cv2.COLOR_BGR2GRAY)
         logging.info("Local faces detection...")
-        faces = face_cascade.detectMultiScale(
+        faces = self.face_cascade.detectMultiScale(
             gray,
             scaleFactor=1.1,
             minNeighbors=5,
@@ -59,6 +59,11 @@ class WebcamClient():
         if "2", user deceided to detect the face
         """
         video_capture = cv2.VideoCapture(0)
+
+        if not video_capture.isOpened():
+            self.logger.error("No webcam Available")
+            exit(0)
+
         while True:
             sleep(3)
             self.logger.info("Grabbing Frame")

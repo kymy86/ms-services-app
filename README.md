@@ -32,7 +32,8 @@ emotion = emotion_client.get_emotion("path_of_image")
 face = face_client.get_face("path_of_image")
 ```
 
-Both the libraries have a method for calling the API asynchronously or synchronously.
+Both the libraries have a method for calling the API asynchronously or synchronously. See the class documentation for more
+details
 
 The Emotion API client implements the emotion recognition with Face rectangles.
 

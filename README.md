@@ -1,4 +1,4 @@
-Face and Emotion detection
+Face, Emotion, Speech, Computer Vision detection
 ===========
 
 This application contains a library and a software application for detecting user faces, emotions and speech in real-time (near real-time)

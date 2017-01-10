@@ -21,7 +21,7 @@ def main(user_input):
     """ execute the ms emotion apis """
     try:
         client = WebcamClient(os.environ['EMOTION_API'], os.environ['FACE_API'], HANDLERS)
-        user_input = "1" if user_input == 'dog' else "2"
+        user_input = "1" if user_input == 'emotion' else "2"
         client.run(user_input)
     except KeyboardInterrupt:
         temp_image = Path(client.IMAGE_PATH)
@@ -31,12 +31,12 @@ def main(user_input):
 
 if __name__ == '__main__':
 
-    print("Say 'Dog' if you want detect the emotion")
-    print("Say 'Red' if you want detect the face")
+    print("Say 'Emotion' if you want to detect the emotion")
+    print("Say 'Face' if you want to detect the face")
 
     user_input = ""
     audioclient = AudioClient(os.environ['SPEECH_API'])
-    while user_input not in ["dog", "red"]:
+    while user_input not in ["emotion", "face"]:
         print("I'm listening.... ")
         user_input = audioclient.run().lower()
         print("You're wrong: You said: {}".format("unrecognizable word" if user_input == 'error' else user_input))

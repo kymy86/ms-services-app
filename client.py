@@ -3,8 +3,8 @@
 
 import os
 from pathlib import Path
-from classes.webcamclient import WebcamClient
-from classes.audioclient import AudioClient
+from clients.webcamclient import WebcamClient
+from clients.audioclient import AudioClient
 
 def on_success(res):
     """print thread success result"""
@@ -50,5 +50,5 @@ if __name__ == '__main__':
     while user_input not in ["emotion", "face", "computer"]:
         print("I'm listening.... ")
         user_input = audioclient.run().lower()
-        print("You're wrong: You said: {}".format("unrecognizable word" if user_input == 'error' else user_input))
+        print("You said: {}".format("unrecognizable word" if user_input == 'error' else user_input))
     main(user_input)

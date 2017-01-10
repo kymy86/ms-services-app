@@ -84,10 +84,7 @@ class WebcamClient():
 
     def run(self):
         """
-        Run the face/emotion detection by calling the Microsft Cognitive Services
-        Arguments:
-        user_choice: if "1", user decided to detect the emotion
-        if "2", user deceided to detect the face
+        Run the face/emotion/computer-vision detection by calling the Microsft Cognitive Services
         """
         video_capture = cv2.VideoCapture(0)
 

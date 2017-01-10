@@ -93,5 +93,5 @@ ENV/
 # Project settings
 .DS_Store
 *.jpg
+*.wav
 setenv.sh
-_detect.py

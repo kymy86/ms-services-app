@@ -1,12 +1,14 @@
+"""
+Abstract the interaction with the Face APIs
+"""
 #!/usr/bin/local/python3
 
 from urllib import parse
 import json
-import operator
-from threading import Thread
 from classes.httpservice import HttpService
 
 class FaceHttpService(HttpService):
+    """ Abstract the interaction with the Face APIs"""
 
     _FACE_URI = '/face/v1.0/detect'
 

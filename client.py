@@ -4,6 +4,7 @@
 import os
 from pathlib import Path
 from classes.webcamclient import WebcamClient
+from classes.audioclient import AudioClient
 
 
 def on_success(res):
@@ -20,17 +21,23 @@ def main(user_input):
     """ execute the ms emotion apis """
     try:
         client = WebcamClient(os.environ['EMOTION_API'], os.environ['FACE_API'], HANDLERS)
+        user_input = "1" if user_input == 'dog' else "2"
         client.run(user_input)
     except KeyboardInterrupt:
         temp_image = Path(client.IMAGE_PATH)
-        if temp_image.is_file:
+        if temp_image.is_file():
             os.remove(client.IMAGE_PATH)
         exit(0)
 
 if __name__ == '__main__':
-    print("Press 1 if you want detect the emotion")
-    print("Press 2 if you want detect the face")
+
+    print("Say 'Dog' if you want detect the emotion")
+    print("Say 'Red' if you want detect the face")
+
     user_input = ""
-    while user_input not in ["1", "2"]:
-        user_input = input("Make your choice (1/2): ")
+    audioclient = AudioClient(os.environ['SPEECH_API'])
+    while user_input not in ["dog", "red"]:
+        print("I'm listening.... ")
+        user_input = audioclient.run().lower()
+        print("You're wrong: You said: {}".format("unrecognizable word" if user_input == 'error' else user_input))
     main(user_input)

@@ -6,7 +6,6 @@ Abstract the interaction with the Emotion APIs
 from urllib import parse
 import json
 import operator
-from threading import Thread
 from classes.httpservice import HttpService
 
 class EmotionHttpService(HttpService):

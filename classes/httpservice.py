@@ -86,7 +86,7 @@ class HttpService():
         return emotion_thread
 
 
-    def _send_request(self, method, base_url, request_url, content_type, body=None):
+    def _send_request(self, method, base_url, request_url, content_type=None, body=None, headers=None):
         """
         Perform the HTTP request.
         Arguments:
@@ -95,12 +95,14 @@ class HttpService():
         request_url = the request url for the connection
         content_type = The value of content type in the header
         body = the body of the request (need only for POST requests)
+        headers = the headers of the request if it requires custom headers
         """
         try:
-            headers = {
-                self._CONTENT_TYPE_HEADER:content_type,
-                self._SUBSCRIPTION_KEY_HEADER:self._subscription_key
-            }
+            if headers is None:
+                headers = {
+                    self._CONTENT_TYPE_HEADER:content_type,
+                    self._SUBSCRIPTION_KEY_HEADER:self._subscription_key
+                }
 
             with closing(client.HTTPSConnection(base_url)) as conn:
                 conn.request(method, request_url, body, headers)

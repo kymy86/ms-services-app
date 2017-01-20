@@ -7,8 +7,9 @@ from urllib import parse
 import json
 import uuid
 from classes.httpservice import HttpService
+from classes.abstracthttpservice import AbstractHttpService
 
-class SpeechHttpService(HttpService):
+class SpeechHttpService(HttpService, AbstractHttpService):
     """ Abstract the interaction with the Bing Speech API"""
 
     _SPEECH_URI = '/recognize'
@@ -93,7 +94,7 @@ class SpeechHttpService(HttpService):
             'instanceid' : uuid.uuid4()
         })
 
-    def get_speech(self, audio_path, full_response=False):
+    def get_response(self, audio_path, full_response=False):
         """
         Implement the Bing Voice Recognition
         https://www.microsoft.com/cognitive-services/en-us/Speech-api/documentation/API-Reference-REST/BingVoiceRecognition
@@ -110,7 +111,7 @@ class SpeechHttpService(HttpService):
             super().logger.error('Error recognize speech')
             raise
 
-    def get_speech_async(self, audio_path, response_handlers, daemon):
+    def get_async_response(self, audio_path, response_handlers, daemon):
         """
         Call the speech recognition API in a separate thread
 
@@ -123,17 +124,17 @@ class SpeechHttpService(HttpService):
         return super()._exec_async_request(
             audio_path,
             response_handlers,
-            self._get_speech_async_helper,
+            self._async_helper_response,
             daemon
         )
 
-    def _get_speech_async_helper(self, audio_path, response_handlers, arg=None):
+    def _async_helper_response(self, audio_path, response_handlers, arg=None):
         """
         A wrapper function to be executed asynchronosly
         """
         res = None
         try:
-            res = self.get_speech(audio_path)
+            res = self.get_response(audio_path)
         except Exception as exception:
             response_handlers['on_failure'](exception)
             return

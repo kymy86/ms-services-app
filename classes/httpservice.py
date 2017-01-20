@@ -18,6 +18,7 @@ class HttpService():
     _JSON_CONTENT_HEADER = 'application/json'
     _STREAM_CONTENT_HEADER = 'application/octet-stream'
     _STATUS_OK = 200
+    _LOG_PATH = 'logs/httpservice.log'
     logger = logging.getLogger('http_client')
 
     def __init__(self, subscription_key):
@@ -29,7 +30,7 @@ class HttpService():
         self.logger.setLevel(logging.DEBUG)
         console_handler = logging.StreamHandler()
         console_handler.setLevel(logging.DEBUG)
-        file_handler = logging.FileHandler('logs/httpservice.log')
+        file_handler = logging.FileHandler(self._LOG_PATH)
         file_handler.setLevel(logging.ERROR)
         formatter = logging.Formatter('%(asctime)s - %(module)s - %(funcName)s - %(lineno)d - %(levelname)s - %(message)s')
         console_handler.setFormatter(formatter)

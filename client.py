@@ -51,4 +51,5 @@ if __name__ == '__main__':
         print("I'm listening.... ")
         user_input = audioclient.run().lower()
         print("You said: {}".format("unrecognizable word" if user_input == 'error' else user_input))
+        user_input = 'face'
     main(user_input)

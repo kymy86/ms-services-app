@@ -7,8 +7,9 @@ from urllib import parse
 import json
 import operator
 from classes.httpservice import HttpService
+from classes.abstracthttpservice import AbstractHttpService
 
-class EmotionHttpService(HttpService):
+class EmotionHttpService(HttpService, AbstractHttpService):
     """ Abstract the interaction with the Emotion APIs"""
 
     _EMOTION_URI = '/emotion/v1.0/recognize'
@@ -16,7 +17,10 @@ class EmotionHttpService(HttpService):
     def __init__(self, subscription_key):
         super().__init__(subscription_key)
 
-    def get_emotion_async(self, image_path, response_handlers, daemon, face_rects=None):
+    def _get_request_params(self):
+        pass
+
+    def get_async_response(self, image_path, response_handlers, daemon, face_rects=None):
         """
         Call the emotion API in a separate thread
 
@@ -29,19 +33,19 @@ class EmotionHttpService(HttpService):
         return super()._exec_async_request(
             image_path,
             response_handlers,
-            self._get_emotion_async_helper,
+            self._async_helper_response,
             daemon,
             face_rects
         )
 
-    def _get_emotion_async_helper(self, image_path, response_handlers, face_rects=None):
+    def _async_helper_response(self, image_path, response_handlers, face_rects=None):
         """
         A wrapper function to be executed asynchronosly
         """
         res = None
         try:
             if face_rects is None:
-                res = self.get_emotion(image_path)
+                res = self.get_response(image_path)
             else:
                 res = self.get_emotion_with_rect(image_path, face_rects)
         except Exception as exception:
@@ -50,7 +54,7 @@ class EmotionHttpService(HttpService):
         response_handlers['on_success'](res)
 
 
-    def get_emotion(self, image_path):
+    def get_response(self, image_path, full_response=False):
         """
         Implement Emotion Recognition API:
         https://dev.projectoxford.ai/docs/services/5639d931ca73072154c1ce89/operations/563b31ea778daf121cc3a5fa
@@ -60,7 +64,7 @@ class EmotionHttpService(HttpService):
         request_url = '{uri}'.format(uri=self._EMOTION_URI)
         try:
             message = super()._execute_request(image_path, request_url)
-            return self._translate_result(message)
+            return self._translate_result(message, full_response)
         except:
             super().logger.error('Error recognize emotion')
             raise
@@ -99,11 +103,15 @@ class EmotionHttpService(HttpService):
             raise
 
 
-    def _translate_result(self, message):
+    def _translate_result(self, message, full_response=False):
         """
         From the scores response of each image, return only the highest one
         """
         response = json.loads(message)
-        return  [
-            max(r['scores'].items(), key=operator.itemgetter(1))[0] for r in response
-        ]
+        if full_response:
+            return response
+        else:
+            response = json.loads(message)
+            return  [
+                max(r['scores'].items(), key=operator.itemgetter(1))[0] for r in response
+            ]

@@ -102,19 +102,19 @@ class WebcamClient():
 
             if self._is_emotion:
                 if len(faces) != 0:
-                    self.emotion_client.get_emotion_async(
+                    self.emotion_client.get_async_response(
                         self.IMAGE_PATH,
                         self.handlers,
                         False,
                         rects)
             elif self._is_face:
                 if len(faces) != 0:
-                    self.face_client.get_face_async(
+                    self.face_client.get_async_response(
                         self.IMAGE_PATH,
                         self.handlers,
                         False)
             else:
-                self.cv_client.get_computer_vision_async(
+                self.cv_client.get_async_response(
                     self.IMAGE_PATH,
                     self.handlers,
                     False

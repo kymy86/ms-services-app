@@ -55,7 +55,7 @@ class AudioClient():
         stream.close()
         audio.terminate()
         self._record_audio(frames, audio)
-        return self.speech_client.get_speech(self.AUDIO_PATH)
+        return self.speech_client.get_response(self.AUDIO_PATH)
 
 
     def _set_logger(self):

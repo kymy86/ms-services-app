@@ -6,8 +6,9 @@ Abstract the interaction with the Face APIs
 from urllib import parse
 import json
 from classes.httpservice import HttpService
+from classes.abstracthttpservice import AbstractHttpService
 
-class ComputerVisionService(HttpService):
+class ComputerVisionService(HttpService, AbstractHttpService):
     """ Abstract the interaction with the Face APIs"""
 
     _FACE_URI = '/vision/v1.0/analyze'
@@ -22,7 +23,7 @@ class ComputerVisionService(HttpService):
             'language' : 'en'
         })
 
-    def get_computer_vision(self, image_path, full_response=False):
+    def get_response(self, image_path, full_response=False):
         """
         Implement the Computer Vision API (Analyze)
         https://dev.projectoxford.ai/docs/services/56f91f2d778daf23d8ec6739/operations/56f91f2e778daf14a499e1fa
@@ -40,7 +41,7 @@ class ComputerVisionService(HttpService):
             super().logger.error('Error run computer vision API')
             raise
 
-    def get_computer_vision_async(self, image_path, response_handlers, daemon):
+    def get_async_response(self, image_path, response_handlers, daemon):
         """
         Call the Computer Vision API in a separate thread
 
@@ -53,16 +54,16 @@ class ComputerVisionService(HttpService):
         return super()._exec_async_request(
             image_path,
             response_handlers,
-            self._get_face_async_helper,
+            self._async_helper_response,
             daemon)
 
-    def _get_face_async_helper(self, image_path, response_handlers, arg=None):
+    def _async_helper_response(self, image_path, response_handlers, arg=None):
         """
         A wrapper function to be executed asynchronosly
         """
         res = None
         try:
-            res = self.get_computer_vision(image_path)
+            res = self.get_response(image_path)
         except Exception as exception:
             response_handlers['on_failure'](exception)
             return

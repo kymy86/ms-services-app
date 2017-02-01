@@ -1,3 +1,9 @@
 [submodule "classes"]
     path = classes
     url = https://github.com/kymy86/ms-cognitive-services.git
+[submodule "ms-cognitive-services"]
+	path = ms-cognitive-services
+	url = https://github.com/kymy86/ms-cognitive-services.git
+[submodule "classes/ms-cognitive-services"]
+	path = classes/ms-cognitive-services
+	url = https://github.com/kymy86/ms-cognitive-services.git

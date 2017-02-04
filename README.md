@@ -24,3 +24,4 @@ The application is implemented in Python (from version 3.5), and use [OpenCV] pa
 [Face API]: https://www.microsoft.com/cognitive-services/en-us/face-api
 [Speech API]: https://www.microsoft.com/cognitive-services/en-us/speech-api
 [Computer Vision API]: https://www.microsoft.com/cognitive-services/en-us/computer-vision-api
+

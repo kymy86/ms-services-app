@@ -3,12 +3,16 @@ Run the ms speech recognition API detecting speech from
 notebook microphone (pyaudio)
 https://people.csail.mit.edu/hubert/pyaudio/
 """
-#!/usr/local/bin/python3
-
+import sys
 import logging
+from pathlib import Path
 import wave
 import pyaudio
-from classes.speechttpservice import SpeechHttpService
+
+parent = Path(__file__).resolve().parents[1]
+path = Path(parent).joinpath('classes')
+sys.path.append(str(path))
+from ms_services.speechttpservice import SpeechHttpService
 
 class AudioClient():
     """

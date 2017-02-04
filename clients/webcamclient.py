@@ -3,14 +3,20 @@ Run the ms emotion APIs detecting faces by using the
 notebook webcam (opencv library)
 http://opencv.org/
 """
-#!/usr/local/bin/python3
 
+import sys
 import logging
 from time import sleep
+from pathlib import Path
 import cv2
-from classes.emotionhttpservice import EmotionHttpService
-from classes.facehttpservice import FaceHttpService
-from classes.computervisionhttpservice import ComputerVisionService
+
+parent = Path(__file__).resolve().parents[1]
+path = Path(parent).joinpath('classes')
+sys.path.append(str(path))
+
+from ms_services.emotionhttpservice import EmotionHttpService
+from ms_services.facehttpservice import FaceHttpService
+from ms_services.computervisionhttpservice import ComputerVisionService
 
 
 class WebcamClient():

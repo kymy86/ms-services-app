@@ -1,4 +1,4 @@
-Cognitive app
+Python app with Microsoft Cognitive Service
 ===========
 
 This software detects user faces, emotions and speech in real-time (near real-time)
@@ -18,3 +18,9 @@ The application is implemented in Python (from version 3.5), and use [OpenCV] pa
     - [Computer Vision API][]
 2. Open the setenv_example.sh file and add the three API Keys as environment variables. Execute the script.
 3. Run the client.py script
+
+[Sign-Up]:https://www.microsoft.com/cognitive-services/en-us/sign-up
+[Emotion API]: https://www.microsoft.com/cognitive-services/en-us/emotion-api
+[Face API]: https://www.microsoft.com/cognitive-services/en-us/face-api
+[Speech API]: https://www.microsoft.com/cognitive-services/en-us/speech-api
+[Computer Vision API]: https://www.microsoft.com/cognitive-services/en-us/computer-vision-api

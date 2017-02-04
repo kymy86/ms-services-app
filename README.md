@@ -1,4 +1,4 @@
-Python app wiht Microsoft Cognitive Service
+Cognitive app
 ===========
 
 This software detects user faces, emotions and speech in real-time (near real-time)
